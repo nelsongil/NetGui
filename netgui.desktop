@@ -1,0 +1,16 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=NetGui
+Name[es]=NetGui - Gestor de Red
+Comment=Network profile manager for KDE Plasma
+Comment[es]=Gestor de perfiles de red para KDE Plasma
+GenericName=Network Manager
+GenericName[es]=Gestor de Red
+Icon=network-workgroup
+Exec=/usr/local/bin/netgui
+Terminal=false
+Categories=Network;System;Qt;KDE;Settings;
+Keywords=network;wifi;ethernet;connection;profile;
+StartupNotify=true
+
