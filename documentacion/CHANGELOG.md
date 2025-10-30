@@ -2,6 +2,34 @@
 
 Todos los cambios notables en el proyecto NetGui se documentarán en este archivo.
 
+## [1.3.0] - 2025-10-30
+
+### 📦 Ejecutable Standalone
+
+- ✨ **Generación de ejecutable con PyInstaller**:
+  - Script automatizado `build_executable.sh` para compilar
+  - Ejecutable de ~57MB con todas las dependencias incluidas
+  - No requiere Python ni entorno virtual instalado
+  - Compatible con sistemas Debian/KDE sin dependencias adicionales
+
+- 🚀 **Script de instalación del ejecutable**:
+  - `install_executable.sh` para instalar en `/usr/local/bin/`
+  - Entrada automática en el menú de aplicaciones KDE
+  - Archivo .desktop con icono y categorías correctas
+  - Ejecución con `pkexec` para permisos de red
+
+- 📝 **Documentación actualizada**:
+  - README con instrucciones para generar ejecutable
+  - Sección dedicada en la guía de inicio rápido
+  - .gitignore actualizado para excluir archivos de compilación
+
+### Ventajas del Ejecutable
+
+- ✅ **Distribución simplificada**: Un solo archivo para compartir
+- ✅ **Sin dependencias Python**: No requiere venv ni pip
+- ✅ **Más rápido**: No necesita interpretar código
+- ✅ **Instalación limpia**: Se integra perfectamente con el sistema
+
 ## [1.2.1] - 2025-10-30
 
 ### 📱 Mejoras de Responsive Design

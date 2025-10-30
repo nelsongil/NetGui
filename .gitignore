@@ -44,3 +44,6 @@ Thumbs.db
 # GitHub info (solo para referencia local)
 .github_info.md
 
+# PyInstaller
+*.spec
+

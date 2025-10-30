@@ -2,7 +2,8 @@
 
 ![NetGui](https://img.shields.io/badge/KDE-Plasma-blue)
 ![Python](https://img.shields.io/badge/Python-3.11+-green)
-![License](https://img.shields.io/badge/License-MIT-yellow)
+![Version](https://img.shields.io/badge/Version-1.3.0-orange)
+![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)
 
 Aplicación gráfica para gestionar perfiles de red en Debian 13 (Trixie) con KDE Plasma, utilizando NetworkManager como backend.
 
@@ -96,6 +97,23 @@ cd /home/nelson/MEGAsync/desarrollo/NetGui
 source venv/bin/activate
 python3 main.py
 ```
+
+### Ejecutable Standalone
+
+Para una instalación más simple sin dependencias Python:
+
+```bash
+# Generar el ejecutable
+./build_executable.sh
+
+# Instalar en el sistema
+sudo ./install_executable.sh
+
+# Ejecutar
+netgui
+```
+
+📖 **Guía completa**: Ver [EXECUTABLE_GUIDE.md](EXECUTABLE_GUIDE.md) para más detalles sobre generación, instalación y distribución del ejecutable.
 
 ### Interfaz de la aplicación
 
@@ -234,7 +252,23 @@ Las contribuciones son bienvenidas. Por favor:
 
 ## Licencia
 
-Este proyecto está bajo la Licencia MIT. Ver archivo `LICENSE` para más detalles.
+**Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)**
+
+Este proyecto es código abierto para uso **personal, educativo y no comercial**.
+
+✅ Puedes:
+- Usar libremente para proyectos personales
+- Estudiar y aprender del código
+- Modificar y adaptar
+- Compartir con otros (con atribución)
+
+❌ No puedes:
+- Usar comercialmente
+- Vender el software o servicios basados en él
+
+Para más detalles, ver [LICENSE](../LICENSE)
+
+💼 **Uso Comercial:** Si deseas usar NetGui comercialmente, contacta al autor.
 
 ## Autor
 

@@ -8,7 +8,7 @@ from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
     QPushButton, QListWidget, QListWidgetItem, QMessageBox, QDialog,
     QLabel, QLineEdit, QFormLayout, QDialogButtonBox, QTextEdit,
-    QGroupBox, QSplitter, QMenu, QFrame, QComboBox
+    QGroupBox, QSplitter, QMenu, QFrame, QComboBox, QScrollArea
 )
 from PyQt6.QtCore import Qt, QTimer, QUrl
 from PyQt6.QtGui import QIcon, QAction, QFont, QDesktopServices
@@ -34,7 +34,7 @@ class AboutDialog(QDialog):
         layout.addWidget(title_label)
         
         # Versión
-        version_label = QLabel("<p style='text-align: center; font-size: 14pt;'><b>Versión 1.2.1</b></p>")
+        version_label = QLabel("<p style='text-align: center; font-size: 14pt;'><b>Versión 1.3.0</b></p>")
         version_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(version_label)
         
@@ -482,6 +482,18 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("NetGui - Gestor de Perfiles de Red")
         self.setMinimumSize(950, 650)
         self.resize(1100, 700)  # Tamaño inicial recomendado
+        # Icono de ventana
+        try:
+            import os
+            base_path = getattr(sys, '_MEIPASS', os.path.dirname(__file__))
+            icon_path = os.path.join(base_path, 'media', 'icono.png')
+            if not os.path.exists(icon_path):
+                # Fallback por si el icono se empaqueta en la raíz
+                icon_path = os.path.join(base_path, 'icono.png')
+            if os.path.exists(icon_path):
+                self.setWindowIcon(QIcon(icon_path))
+        except Exception:
+            pass
         self.profiles = []
         self.setup_ui()
         self.load_profiles()
@@ -530,6 +542,7 @@ class MainWindow(QMainWindow):
         profile_font.setBold(True)
         self.profile_label.setFont(profile_font)
         self.profile_label.setStyleSheet("color: #1976D2; padding: 3px;")
+        self.profile_label.setWordWrap(True)
         self.profile_label.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
         layout.addWidget(self.profile_label)
         
@@ -658,10 +671,10 @@ class MainWindow(QMainWindow):
                 padding: 10px 14px;
                 border-radius: 6px;
                 font-weight: bold;
-                font-size: 10pt;
+                font-size: 12pt;
                 text-align: left;
-                min-height: 36px;
-                max-height: 48px;
+                min-height: 40px;
+                max-height: 52px;
             }
             QListWidget {
                 border: 2px solid #E0E0E0;
@@ -698,28 +711,31 @@ class MainWindow(QMainWindow):
         title_label = QLabel("🌐 <span style='color: #1976D2;'>NetGui</span> - Gestor de Perfiles de Red")
         title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         title_label.setStyleSheet("""
-            font-size: 16pt;
+            font-size: 12pt;
             font-weight: bold;
-            padding: 12px;
+            padding: 3px 6px;
             background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
                                         stop:0 #E3F2FD, stop:0.5 #BBDEFB, stop:1 #E3F2FD);
             border-radius: 8px;
             color: #0D47A1;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         """)
+        # Limitar altura del recuadro (reduce ~60%)
+        title_label.setMinimumHeight(24)
+        title_label.setMaximumHeight(28)
         main_layout.addWidget(title_label)
         
-        # Panel de información de red actual
-        self.info_panel = self.create_info_panel()
-        main_layout.addWidget(self.info_panel)
-        
-        # Splitter para dividir la lista y los botones
+        # Splitter para dividir la lista (con info) y los botones
         splitter = QSplitter(Qt.Orientation.Horizontal)
         
         # Panel izquierdo con título y lista
         left_panel = QWidget()
         left_layout = QVBoxLayout()
         left_layout.setContentsMargins(0, 0, 0, 0)
+        
+        # Panel de información de red actual dentro de la columna izquierda
+        self.info_panel = self.create_info_panel()
+        left_layout.addWidget(self.info_panel)
         
         # Título de la lista de perfiles
         profiles_title = QLabel("📋 Perfiles de Red Disponibles")
@@ -744,7 +760,7 @@ class MainWindow(QMainWindow):
         left_panel.setLayout(left_layout)
         splitter.addWidget(left_panel)
         
-        # Panel de botones
+        # Panel de botones (dentro de un contenedor con scroll para evitar solapamientos)
         button_panel = QWidget()
         button_layout = QVBoxLayout()
         button_layout.setSpacing(6)  # Reducir espaciado entre botones
@@ -758,7 +774,7 @@ class MainWindow(QMainWindow):
                 background-color: transparent;
                 color: #4CAF50;
                 border: 2px solid #4CAF50;
-                font-size: 11pt;
+                font-size: 13pt;
                 font-weight: bold;
             }
             QPushButton:hover {
@@ -943,7 +959,12 @@ class MainWindow(QMainWindow):
         button_panel.setLayout(button_layout)
         button_panel.setMinimumWidth(220)  # Ancho mínimo para botones
         button_panel.setMaximumWidth(280)  # Ancho máximo para botones
-        splitter.addWidget(button_panel)
+
+        scroll_buttons = QScrollArea()
+        scroll_buttons.setWidgetResizable(True)
+        scroll_buttons.setFrameShape(QFrame.Shape.NoFrame)
+        scroll_buttons.setWidget(button_panel)
+        splitter.addWidget(scroll_buttons)
         
         # Proporción: lista más ancha, botones más estrechos
         splitter.setStretchFactor(0, 3)

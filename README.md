@@ -1,10 +1,10 @@
 # 🌐 NetGui - Gestor de Perfiles de Red
 
-**Versión 1.2.1** - Aplicación moderna para gestionar perfiles de red en Debian 13 con KDE Plasma
+**Versión 1.3.0** - Aplicación moderna para gestionar perfiles de red en Debian 13 con KDE Plasma
 
 ![NetGui](https://img.shields.io/badge/KDE-Plasma-blue)
 ![Python](https://img.shields.io/badge/Python-3.11+-green)
-![Version](https://img.shields.io/badge/Version-1.2.1-orange)
+![Version](https://img.shields.io/badge/Version-1.3.0-orange)
 ![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)
 
 ---
@@ -33,6 +33,23 @@ pip install -r requirements.txt
 # Ejecutar
 python3 main.py
 ```
+
+### Generar Ejecutable
+
+Si prefieres un ejecutable standalone:
+
+```bash
+# Generar ejecutable
+./build_executable.sh
+
+# Ejecutar directamente
+./dist/netgui
+
+# Instalar en el sistema (opcional)
+sudo ./install_executable.sh
+```
+
+El ejecutable se instalará en `/usr/local/bin/netgui` y aparecerá en tu menú de aplicaciones.
 
 ---
 
